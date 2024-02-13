@@ -1,3 +1,5 @@
+* this package was originally hosted at https://github.com/Benjamin-Vincent-Lab/picard and was moved here on 2/13/2024
+
 picard_collect_rna_seq_metrics was failing with an error that the package magrittr didn't exist.  This is an error from picard's scripts, not one of ours.  This shouldn't happen because the image hadn't changed and it used to work.  The same command, files, and container ran fine locally using docker, but would complain about missing magrittr using apptainer.
 
 I made a new Dockerfile & image by wrapping the Broad's with an added magrittr installation (plus the required make & gcc).  This new image worked fine on apptainer, so problem solved.  This seems to indicate that, however they installed magrittr in their Dockerfile, it was only accessible to root (docker) and not USER (apptainer).
